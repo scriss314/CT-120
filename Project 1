@@ -1,3 +1,6 @@
-Here is my update verson from Project One. I started yesterday and finished today to see how long it would take me to finish. I almost redid the entire code, updating many things such as the Sun, the moon, fix the building
-and even added windows with them, changing color depending on the angle of the clock. I also added a star for a bit more realism. 
+Here is my update verson from Project One. I started yesterday and finished today to see how long it would take me to finish. I almost redid the entire code, updating many things such as the Sun, the moon, fixing the building, 
+and even added windows with them, changing color depending on the angle of the clock. I also added a star for a bit more realism. I added more Let functions  and a For loop as well. It felt strange to see what my first code
+was like and how it was set up. Seeing how strange it was, messy, and knowing how I barely knew the code at first. Now with more knowledge and experience. I was able to fix and add more functions to my code.
+I added more Let functions for the Sun and moon to add more realism, mainly to make it cleaner and easier to read and understand. The only change I made for the building is adding the Windows and making them glow 
+to a certain degree. 
 Link: https://editor.p5js.org/scriss/full/y3Fbs-zsn
