@@ -1,0 +1,33 @@
+let count = 10
+let shift = 0;
+let speed = 20;
+function setup(){
+  createCanvas(400, 400);
+  noStroke()
+}
+
+function draw(){
+  background(220);
+  let thesize = width / count; 
+  
+  if(frameCount % speed === 0){
+    shift++;
+  }
+  print(thesize)
+  for (let i = 0; i < count; i++) {
+    for (let j = 0; j < count; j++ ) {
+      
+      let pattern = ( i + j + shift) % 3;
+     
+      if (pattern ===0){
+        fill('red')
+      } else if (pattern == 1){
+        fill('white')
+      } else{
+        fill('blue')
+      }
+      square( i *  thesize, j * thesize, thesize);
+    }
+  }
+}
+
