@@ -1,0 +1,47 @@
+let cols = 8;
+let rows = 8;
+let size;
+
+let colorSets = [
+  ["#000000", "#FFFFFF"], // black & white
+  ["#FF0000", "#0000FF"], // red & blue
+  ["#00FF00", "#800080"], // green & purple
+  ["#FFA500", "#00FFFF"]  // orange & cyan
+];
+
+let currentSet = 0;
+let button;
+
+function setup() {
+  createCanvas(400, 400);
+  size = width / cols;
+
+  button = createButton("Change Colors");
+  button.position(10, height + 10);
+  button.mousePressed(changeColors);
+}
+
+function draw() {
+  background(220);
+
+  for (let y = 0; y < rows; y++) {
+    for (let x = 0; x < cols; x++) {
+
+      // checker pattern logic
+      if ((x + y) % 2 === 0) {
+        fill(colorSets[currentSet][0]);
+      } else {
+        fill(colorSets[currentSet][1]);
+      }
+
+      rect(x * size, y * size, size, size);
+    }
+  }
+}
+
+function changeColors() {
+  currentSet++;
+  if (currentSet >= colorSets.length) {
+    currentSet = 0;
+  }
+}
