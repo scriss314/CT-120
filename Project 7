@@ -1,0 +1,65 @@
+let myShader;
+
+const vertShader = `
+precision mediump float;
+
+attribute vec3 aPosition;
+
+uniform mat4 uModelViewMatrix;
+uniform mat4 uProjectionMatrix;
+
+void main() {
+
+  gl_Position = uProjectionMatrix * uModelViewMatrix * vec4(aPosition, 1.0);
+
+}
+`;
+
+const fragShader = `
+precision mediump float;
+
+uniform float uTime;
+uniform vec2 uResolution;
+
+void main() {
+
+  vec2 uv = gl_FragCoord.xy / uResolution;
+
+  float r = 0.5 + 0.5 * sin(uTime + uv.x * 10.0);
+  float g = 0.5 + 0.5 * sin(uTime + uv.y * 10.0);
+  float b = 0.5 + 0.5 * sin(uTime);
+
+  gl_FragColor = vec4(r, g, b, 1.0);
+
+}
+`;
+
+function setup() {
+  createCanvas(600, 600, WEBGL);
+
+  noStroke();
+
+  // create shader directly from strings
+  myShader = createShader(vertShader, fragShader);
+}
+
+function draw() {
+
+  background(0);
+  orbitControl()
+
+  // activate shader
+  shader(myShader);
+
+  // send uniforms
+  myShader.setUniform('uTime', millis() / 1000.0);
+  myShader.setUniform('uResolution', [width, height]);
+
+  // movement
+  rotateY(frameCount * 0.01);
+  rotateX(frameCount * 0.01);
+
+  // draw 3D object
+  sphere(150, 100, 100);
+
+}
