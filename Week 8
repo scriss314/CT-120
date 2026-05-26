@@ -1,0 +1,104 @@
+This week, I wanted to make my own type of worst volume control. So instead of having one controller that changes your volume. I added 100 sliders to change your volume
+each time you interact with one. It changes by one percent. 
+Code Below:
+
+let sliders = [];
+
+function setup() {
+  createCanvas(900, 600);
+
+  // Create 100 tiny sliders
+  for (let i = 0; i < 100; i++) {
+
+    sliders.push({
+      x: random(50, width - 50),
+      y: random(80, height - 50),
+      w: 60,
+      h: 6,
+      knobX: 0,
+      dragging: false
+    });
+
+  }
+
+  textFont('monospace');
+}
+
+function draw() {
+
+  background(15);
+
+  // Title
+  fill(255);
+  textSize(28);
+  textAlign(CENTER);
+  text("Worst Volume Control", width / 2, 40);
+
+  // Calculate total volume
+  let total = 0;
+
+  for (let s of sliders) {
+    total += map(s.knobX, 0, s.w, 0, 1);
+  }
+
+  // Average volume
+  let volume = floor((total / sliders.length) * 100);
+
+  textSize(20);
+  text("Volume: " + volume + "%", width / 2, 70);
+
+  // Draw all sliders
+  for (let s of sliders) {
+
+    // Slider line
+    stroke(120);
+    strokeWeight(2);
+    line(s.x, s.y, s.x + s.w, s.y);
+
+    // Knob
+    noStroke();
+
+    if (s.dragging) {
+      fill(255, 80, 80);
+    } else {
+      fill(255);
+    }
+
+    ellipse(s.x + s.knobX, s.y, 10);
+
+    // Dragging logic
+    if (s.dragging) {
+      s.knobX = mouseX - s.x;
+      s.knobX = constrain(s.knobX, 0, s.w);
+    }
+  }
+
+  // Volume bar
+  fill(50);
+  rect(200, height - 40, 500, 20);
+
+  fill(0, 255, 100);
+  rect(200, height - 40, volume * 5, 20);
+}
+
+function mousePressed() {
+
+  for (let s of sliders) {
+
+    let knobPosX = s.x + s.knobX;
+
+    // Check if mouse touches knob
+    let d = dist(mouseX, mouseY, knobPosX, s.y);
+
+    if (d < 10) {
+      s.dragging = true;
+    }
+  }
+}
+
+function mouseReleased() {
+
+  for (let s of sliders) {
+    s.dragging = false;
+  }
+}
